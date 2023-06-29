@@ -4,9 +4,9 @@ import GridTable from './GridTable';
 
 function Excel() {
   return (
-    <div>
+    <div className="absolute overflow-x-auto">
       <GenerateFirstRow />
-      <GridTable amount={100} />
+      <GridTable rowsCount={100} />
     </div>
   );
 }
