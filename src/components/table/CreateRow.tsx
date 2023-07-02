@@ -6,7 +6,6 @@ function CreateRow({ index }: { index: number }) {
       <Cell
         id={index}
         width={50}
-        height={24}
         content={String(index)}
         type="row"
         data_row={index}
@@ -18,7 +17,6 @@ function CreateRow({ index }: { index: number }) {
           <Cell
             id={`${index}:${i}`}
             width={100}
-            height={24}
             content={' '}
             data_col={String.fromCharCode(65 + i)}
             data_row={index}
