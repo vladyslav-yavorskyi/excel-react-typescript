@@ -1,7 +1,7 @@
 import Formula from './components/Formula';
 import Navbar from './components/Navbar';
 import Toolbar from './components/Toolbar';
-import Excel from './components/excel/Excel';
+import Table from './components/table/Table';
 
 function App() {
   return (
@@ -9,7 +9,7 @@ function App() {
       <Navbar />
       <Toolbar />
       <Formula />
-      <Excel />
+      <Table />
     </>
   );
 }
