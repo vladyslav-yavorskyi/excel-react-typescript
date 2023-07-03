@@ -13,8 +13,8 @@ const resizeCol = `absolute top-0 right-0 w-[5px] h-[100%] bg-gray-400  cursor-p
 const resizeRow = `absolute w-[100%] h-[5px] bg-gray-400  bottom-0 left-0 cursor-pointer opacity-0 hover:opacity-100`;
 
 function Cell({ id, width, content, type, data_col, data_row }: ICell) {
-  const [initialPos, setInitialPos] = useState<number>(0);
-  const [initialSize, setInitialSize] = useState<number>(0);
+  const [initialPos, setInitialPos] = useState<number>(-5000);
+  const [initialSize, setInitialSize] = useState<number>(-5000);
 
   const initial = (e: DragEvent<HTMLDivElement>) => {
     let resizable = document.getElementById(String(id));
@@ -26,8 +26,9 @@ function Cell({ id, width, content, type, data_col, data_row }: ICell) {
     );
   };
 
-  const resize = (e: DragEvent) => {
-    let resizable = document.getElementById(String(id));
+  const endResize = (e: DragEvent) => {
+    const resizable = document.getElementById(String(id));
+    const resizer = document.getElementById(`resizer-${type}`);
 
     if (type === 'col') {
       resizable!.style.width = `${
@@ -49,6 +50,20 @@ function Cell({ id, width, content, type, data_col, data_row }: ICell) {
           (el.style.height = `${initialSize + (e.clientY - initialPos)}px`)
       );
     }
+
+    resizer!.style[`${type === 'col' ? 'left' : 'top'}`] = `${-5000}px`;
+  };
+
+  const resize = (e: DragEvent) => {
+    const resizer = document.getElementById(`resizer-${type}`);
+    const table = document.querySelector('[data-component="table"]');
+    const topTable = table!.getBoundingClientRect().top;
+
+    if (type === 'col') {
+      resizer!.style.left = `${e.clientX}px`;
+    } else {
+      resizer!.style.top = `${e.clientY - topTable}px`;
+    }
   };
 
   return (
@@ -68,6 +83,7 @@ function Cell({ id, width, content, type, data_col, data_row }: ICell) {
         draggable="true"
         onDragStart={initial}
         onDrag={resize}
+        onDragEnd={endResize}
         className={type === 'col' ? resizeCol : type === 'row' ? resizeRow : ''}
       ></div>
     </div>
