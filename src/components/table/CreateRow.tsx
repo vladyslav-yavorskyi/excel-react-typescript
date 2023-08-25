@@ -1,13 +1,14 @@
 import Cell from './Cell';
+import StaticCell from './StaticCell';
 
 function CreateRow({ index }: { index: number }) {
   return (
     <div className="flex flex-row">
-      <Cell
-        id={index}
+      <StaticCell
         width={50}
         content={String(index)}
         type="row"
+        data_col={''}
         data_row={index}
         key={index}
       />
