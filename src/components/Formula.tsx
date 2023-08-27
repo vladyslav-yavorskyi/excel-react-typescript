@@ -7,7 +7,7 @@ function Formula() {
   const currentCell = useAppSelector((state) => state.cellReducer.currentCell);
   const dispatch = useAppDispatch();
 
-  const changeHandler = (event: any) => {
+  const changeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
     dispatch(setCurrentText({ text: event.target.value }));
     dispatch(addText({ coords: currentCell, text: event.target.value }));
   };

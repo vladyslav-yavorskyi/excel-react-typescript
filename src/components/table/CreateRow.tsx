@@ -8,7 +8,6 @@ function CreateRow({ index }: { index: number }) {
         width={50}
         content={String(index)}
         type="row"
-        data_col={''}
         data_row={index}
         key={index}
       />
@@ -19,7 +18,7 @@ function CreateRow({ index }: { index: number }) {
             id={`${index}:${i}`}
             width={100}
             content={' '}
-            data_col={String.fromCharCode(65 + i)}
+            data_col={i}
             data_row={index}
             key={`${index}:${i}`}
           />

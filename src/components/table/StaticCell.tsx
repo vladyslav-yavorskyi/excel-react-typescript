@@ -8,8 +8,8 @@ interface IStaticCell {
   type: string;
   width: number;
   content: string;
-  data_col: string;
-  data_row: any;
+  data_col?: number;
+  data_row?: number;
 }
 
 function StaticCell({ type, width, content, data_col, data_row }: IStaticCell) {

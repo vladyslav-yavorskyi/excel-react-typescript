@@ -2,7 +2,7 @@ import { useState, DragEvent } from 'react';
 
 interface ICell {
   resizable: any;
-  data_col?: string;
+  data_col?: number;
   data_row?: number;
   type?: string;
 }
