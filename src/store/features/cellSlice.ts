@@ -30,9 +30,6 @@ export const cellSlice = createSlice({
     },
     setCurrentCell: (state, action: PayloadAction<{ cell: string }>) => {
       state.currentCell = action.payload.cell;
-      console.log('d');
-
-      // document.getElementById(action.payload.cell)?.click();
     },
   },
 });

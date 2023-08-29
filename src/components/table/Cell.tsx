@@ -8,22 +8,12 @@ import {
 import useDebaunce from '../../hooks/useDebaunce';
 import { ICell } from '../../interfaces';
 import { nextSelector } from './utils/cellHelpers';
-import { useEffect, useState } from 'react';
 
 function Cell({ width, type, data_col, data_row }: ICell) {
-  const [data, setData] = useState({});
   const { dataState, currentCell } = useAppSelector(
     (state) => state.cellReducer
   );
   const dispatch = useAppDispatch();
-
-  useEffect(() => {
-    console.log(dataState, data);
-
-    if (dataState) {
-      setData(dataState);
-    }
-  }, [dataState]);
 
   const setText = useDebaunce((event: ContentEditableEvent) => {
     dispatch(
@@ -54,7 +44,6 @@ function Cell({ width, type, data_col, data_row }: ICell) {
     if (keys.includes(key) && !event.shiftKey) {
       event.preventDefault();
       const next = nextSelector(key, { col: data_col, row: data_row });
-      console.log(data);
 
       dispatch(setCurrentCell({ cell: next }));
       dispatch(
@@ -62,13 +51,23 @@ function Cell({ width, type, data_col, data_row }: ICell) {
           text: dataState[next as keyof typeof dataState] ?? '',
         })
       );
-      document.getElementById(next)?.click();
-      document.getElementById(next)?.focus();
+
+      const nextCell = document.getElementById(next) as HTMLElement;
+      nextCell?.click();
+      nextCell?.focus();
+
+      // Create a range object and set its start and end positions to the end of the content
+      const range = document.createRange();
+      range.selectNodeContents(nextCell);
+      range.collapse(false);
+
+      // Create a selection object and set its range to the range you created
+      const selection = window.getSelection();
+      selection?.removeAllRanges();
+      selection?.addRange(range);
     }
   };
   const clickHandler = () => {
-    console.log(dataState);
-
     dispatch(setCurrentCell({ cell: `${data_col}:${data_row}` }));
     dispatch(
       setCurrentText({
