@@ -1,16 +1,13 @@
 import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
+import { CellPros } from '../../interfaces';
 
-interface ICell {
-  dataState: object;
-  currentText: string;
-  currentCell: string;
-}
-
-const initialState: ICell = {
+const initialState: CellPros = {
   dataState: {},
+  stylesState: {},
   currentText: '',
-  currentCell: 'A:0',
+  currentStyle: {},
+  currentCell: '',
 };
 
 export const cellSlice = createSlice({
@@ -28,13 +25,35 @@ export const cellSlice = createSlice({
     setCurrentText: (state, action: PayloadAction<{ text: string }>) => {
       state.currentText = action.payload.text;
     },
+    setCurrentStyle: (state, action: PayloadAction<{ style: object }>) => {
+      state.currentStyle = { ...action.payload.style };
+    },
     setCurrentCell: (state, action: PayloadAction<{ cell: string }>) => {
       state.currentCell = action.payload.cell;
+    },
+    setStyle: (
+      state,
+      action: PayloadAction<{
+        styleObj: { style: string; value: string; cell: string };
+      }>
+    ) => {
+      const { style, value, cell } = action.payload.styleObj;
+
+      state.stylesState[cell as keyof typeof state.stylesState] = {
+        ...state.stylesState[cell],
+        [style]: value,
+      };
     },
   },
 });
 
 // Action creators are generated for each case reducer function
-export const { addText, setCurrentText, setCurrentCell } = cellSlice.actions;
+export const {
+  addText,
+  setCurrentText,
+  setCurrentCell,
+  setStyle,
+  setCurrentStyle,
+} = cellSlice.actions;
 
 export default cellSlice.reducer;

@@ -3,8 +3,9 @@ import { useAppDispatch, useAppSelector } from '../hooks/redux';
 import { addText, setCurrentText } from '../store/features/cellSlice';
 
 function Formula() {
-  const currentText = useAppSelector((state) => state.cellReducer.currentText);
-  const currentCell = useAppSelector((state) => state.cellReducer.currentCell);
+  const { currentText, currentCell } = useAppSelector(
+    (state) => state.cellReducer
+  );
   const dispatch = useAppDispatch();
 
   const changeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {

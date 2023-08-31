@@ -4,13 +4,14 @@ import {
   addText,
   setCurrentText,
   setCurrentCell,
+  setCurrentStyle,
 } from '../../store/features/cellSlice';
 import useDebaunce from '../../hooks/useDebaunce';
 import { ICell } from '../../interfaces';
 import { nextSelector } from './utils/cellHelpers';
 
 function Cell({ width, type, data_col, data_row }: ICell) {
-  const { dataState, currentCell } = useAppSelector(
+  const { dataState, currentCell, stylesState } = useAppSelector(
     (state) => state.cellReducer
   );
   const dispatch = useAppDispatch();
@@ -70,6 +71,13 @@ function Cell({ width, type, data_col, data_row }: ICell) {
   const clickHandler = () => {
     dispatch(setCurrentCell({ cell: `${data_col}:${data_row}` }));
     dispatch(
+      setCurrentStyle({
+        style: stylesState[
+          `${data_col}:${data_row}` as keyof typeof stylesState
+        ] ?? { fontWeight: '', fontStyle: '', textDecoration: '' },
+      })
+    );
+    dispatch(
       setCurrentText({
         text:
           dataState[`${data_col}:${data_row}` as keyof typeof dataState] ?? '',
@@ -80,11 +88,13 @@ function Cell({ width, type, data_col, data_row }: ICell) {
   return (
     <div
       className={`relative text-center border-solid border-l-0 border-b-0 border-2 border-gray-300 z-10 `}
-      style={
-        `${data_col}:${data_row}` === currentCell
-          ? { backgroundColor: 'rgba(0, 0, 255, 0.2)' }
-          : {}
-      }
+      style={{
+        ...stylesState[`${data_col}:${data_row}` as keyof typeof stylesState],
+        backgroundColor:
+          `${data_col}:${data_row}` === currentCell
+            ? 'rgba(0, 0, 255, 0.2)'
+            : '',
+      }}
       onClick={clickHandler}
     >
       <ContentEditable

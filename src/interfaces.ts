@@ -6,3 +6,17 @@ export interface ICell {
   data_row: number;
   type?: string;
 }
+
+export interface CellPros {
+  dataState: {
+    [key: string]: string;
+  };
+  stylesState: {
+    [key: string]: object;
+  };
+  currentStyle: {
+    [key: string]: string;
+  };
+  currentText: string;
+  currentCell: string;
+}
