@@ -1,13 +1,17 @@
 import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
 import { CellPros } from '../../interfaces';
+import { act } from 'react-dom/test-utils';
 
 const initialState: CellPros = {
+  title: '',
   dataState: {},
   stylesState: {},
+  colState: {},
+  rowState: {},
   currentText: '',
   currentStyle: {},
-  currentCell: '',
+  currentCell: '0:0',
 };
 
 export const cellSlice = createSlice({
@@ -44,6 +48,25 @@ export const cellSlice = createSlice({
         [style]: value,
       };
     },
+    setTitle: (state, action: PayloadAction<{ title: string }>) => {
+      state.title = action.payload.title;
+    },
+    setColState: (
+      state,
+      action: PayloadAction<{ coords: string; col: number }>
+    ) => {
+      const { coords, col } = action.payload;
+
+      state.colState = { ...state.colState, [coords]: col };
+    },
+    setRowState: (
+      state,
+      action: PayloadAction<{ coords: string; row: number }>
+    ) => {
+      const { coords, row } = action.payload;
+
+      state.rowState = { ...state.rowState, [coords]: row };
+    },
   },
 });
 
@@ -54,6 +77,9 @@ export const {
   setCurrentCell,
   setStyle,
   setCurrentStyle,
+  setTitle,
+  setColState,
+  setRowState,
 } = cellSlice.actions;
 
 export default cellSlice.reducer;

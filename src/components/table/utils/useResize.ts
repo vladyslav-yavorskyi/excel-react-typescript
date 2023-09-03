@@ -1,4 +1,6 @@
 import { useState, DragEvent } from 'react';
+import { useAppDispatch } from '../../../hooks/redux';
+import { setColState, setRowState } from '../../../store/features/cellSlice';
 
 interface ICell {
   resizable: any;
@@ -10,9 +12,9 @@ interface ICell {
 const useResize = ({ resizable, type, data_col, data_row }: ICell) => {
   const [initialPos, setInitialPos] = useState<number>(-5000);
   const [initialSize, setInitialSize] = useState<number>(-5000);
+  const dispatch = useAppDispatch();
 
   const initial = (e: DragEvent<HTMLDivElement>) => {
-    // let resizable = document.getElementById(String(id));
     setInitialPos(type === 'col' ? e.clientX : e.clientY);
     setInitialSize(
       type === 'col'
@@ -22,7 +24,6 @@ const useResize = ({ resizable, type, data_col, data_row }: ICell) => {
   };
 
   const endResize = (e: DragEvent) => {
-    // const resizable = document.getElementById(String(id));
     const resizer = document.getElementById(`resizer-${type}`);
 
     if (type === 'col') {
@@ -30,19 +31,20 @@ const useResize = ({ resizable, type, data_col, data_row }: ICell) => {
         initialSize + String(e.clientX - Number(initialPos))
       }px`;
 
-      Array.from(
-        document.querySelectorAll<HTMLElement>(`[data-col='${data_col}']`)
-      ).forEach(
-        (el) => (el.style.width = `${initialSize + (e.clientX - initialPos)}px`)
+      dispatch(
+        setColState({
+          coords: String(data_col),
+          col: initialSize + (e.clientX - initialPos),
+        })
       );
     } else {
       resizable!.style.height = `${initialSize + (e.clientY - initialPos)}px`;
 
-      Array.from(
-        document.querySelectorAll<HTMLElement>(`[data-row='${data_row}']`)
-      ).forEach(
-        (el) =>
-          (el.style.height = `${initialSize + (e.clientY - initialPos)}px`)
+      dispatch(
+        setRowState({
+          coords: String(data_row),
+          row: initialSize + (e.clientY - initialPos),
+        })
       );
     }
 

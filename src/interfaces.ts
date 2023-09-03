@@ -7,7 +7,17 @@ export interface ICell {
   type?: string;
 }
 
+export interface IStaticCell {
+  type: string;
+  width: number;
+  height: number;
+  content: string;
+  data_col?: number;
+  data_row?: number;
+}
+
 export interface CellPros {
+  title: string;
   dataState: {
     [key: string]: string;
   };
@@ -16,6 +26,12 @@ export interface CellPros {
   };
   currentStyle: {
     [key: string]: string;
+  };
+  colState: {
+    [key: string]: Number;
+  };
+  rowState: {
+    [key: string]: Number;
   };
   currentText: string;
   currentCell: string;

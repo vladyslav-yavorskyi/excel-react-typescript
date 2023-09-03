@@ -1,18 +1,18 @@
 import useResize from './utils/useResize';
 import useClientRect from '../../hooks/useClientRect';
+import { IStaticCell } from '../../interfaces';
 
 const resizeCol = `absolute top-0 right-0 w-[5px] h-[100%] bg-gray-400  cursor-pointer opacity-0 hover:opacity-100`;
 const resizeRow = `absolute w-[100%] h-[5px] bg-gray-400  bottom-0 left-0 cursor-pointer opacity-0 hover:opacity-100`;
 
-interface IStaticCell {
-  type: string;
-  width: number;
-  content: string;
-  data_col?: number;
-  data_row?: number;
-}
-
-function StaticCell({ type, width, content, data_col, data_row }: IStaticCell) {
+function StaticCell({
+  type,
+  width,
+  height,
+  content,
+  data_col,
+  data_row,
+}: IStaticCell) {
   const [rect, elementRef] = useClientRect();
 
   const { resize, endResize, initial } = useResize({
@@ -28,7 +28,7 @@ function StaticCell({ type, width, content, data_col, data_row }: IStaticCell) {
     >
       <div
         ref={elementRef}
-        style={{ width }}
+        style={{ width, height }}
         className={`flex items-center whitespace-nowrap outline-none text-ellipsis overflow-hidden justify-center`}
         data-col={data_col}
         data-row={data_row}

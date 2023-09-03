@@ -98,7 +98,7 @@ function Cell({ width, type, data_col, data_row }: ICell) {
       onClick={clickHandler}
     >
       <ContentEditable
-        style={{ width }}
+        style={{ width, height: '100%' }}
         onKeyDown={keyHandler}
         onChange={changeHandler}
         html={
