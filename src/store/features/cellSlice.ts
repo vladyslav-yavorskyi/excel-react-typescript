@@ -1,7 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
 import { CellPros } from '../../interfaces';
-import { act } from 'react-dom/test-utils';
 
 const initialState: CellPros = {
   title: '',
@@ -15,7 +14,7 @@ const initialState: CellPros = {
 };
 
 export const cellSlice = createSlice({
-  name: 'cellSlice',
+  name: 'cellReducer',
   initialState,
   reducers: {
     addText: (
@@ -26,15 +25,15 @@ export const cellSlice = createSlice({
 
       state.dataState = { ...state.dataState, [coords]: text };
     },
-    setCurrentText: (state, action: PayloadAction<{ text: string }>) => {
-      state.currentText = action.payload.text;
-    },
-    setCurrentStyle: (state, action: PayloadAction<{ style: object }>) => {
-      state.currentStyle = { ...action.payload.style };
-    },
-    setCurrentCell: (state, action: PayloadAction<{ cell: string }>) => {
-      state.currentCell = action.payload.cell;
-    },
+    // setCurrentText: (state, action: PayloadAction<{ text: string }>) => {
+    //   state.currentText = action.payload.text;
+    // },
+    // setCurrentStyle: (state, action: PayloadAction<{ style: object }>) => {
+    //   state.currentStyle = { ...action.payload.style };
+    // },
+    // setCurrentCell: (state, action: PayloadAction<{ cell: string }>) => {
+    //   state.currentCell = action.payload.cell;
+    // },
     setStyle: (
       state,
       action: PayloadAction<{
@@ -73,10 +72,10 @@ export const cellSlice = createSlice({
 // Action creators are generated for each case reducer function
 export const {
   addText,
-  setCurrentText,
-  setCurrentCell,
+  // setCurrentText,
+  // setCurrentCell,
   setStyle,
-  setCurrentStyle,
+  // setCurrentStyle,
   setTitle,
   setColState,
   setRowState,

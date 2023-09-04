@@ -1,10 +1,10 @@
 import React from 'react';
 import { useAppDispatch, useAppSelector } from '../hooks/redux';
-import { addText, setCurrentText } from '../store/features/cellSlice';
-
+import { addText } from '../store/features/cellSlice';
+import { setCurrentText } from '../store/features/localSlice';
 function Formula() {
   const { currentText, currentCell } = useAppSelector(
-    (state) => state.cellReducer
+    (state) => state.localReducer
   );
   const dispatch = useAppDispatch();
 

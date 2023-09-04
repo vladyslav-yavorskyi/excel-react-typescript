@@ -1,19 +1,20 @@
 import ContentEditable, { ContentEditableEvent } from 'react-contenteditable';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
+import { addText } from '../../store/features/cellSlice';
 import {
-  addText,
   setCurrentText,
   setCurrentCell,
   setCurrentStyle,
-} from '../../store/features/cellSlice';
+} from '../../store/features/localSlice';
 import useDebaunce from '../../hooks/useDebaunce';
 import { ICell } from '../../interfaces';
 import { nextSelector } from './utils/cellHelpers';
 
 function Cell({ width, type, data_col, data_row }: ICell) {
-  const { dataState, currentCell, stylesState } = useAppSelector(
+  const { dataState, stylesState } = useAppSelector(
     (state) => state.cellReducer
   );
+  const { currentCell } = useAppSelector((state) => state.localReducer);
   const dispatch = useAppDispatch();
 
   const setText = useDebaunce((event: ContentEditableEvent) => {

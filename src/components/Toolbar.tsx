@@ -6,11 +6,12 @@ import {
   faUnderline,
 } from '@fortawesome/free-solid-svg-icons';
 import { useAppDispatch, useAppSelector } from '../hooks/redux';
-import { setCurrentStyle, setStyle } from '../store/features/cellSlice';
+import { setStyle } from '../store/features/cellSlice';
+import { setCurrentStyle } from '../store/features/localSlice';
 
 function Toolbar() {
   const { currentCell, currentStyle } = useAppSelector(
-    (state) => state.cellReducer
+    (state) => state.localReducer
   );
   const dispatch = useAppDispatch();
 
