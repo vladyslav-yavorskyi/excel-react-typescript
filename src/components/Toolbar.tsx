@@ -6,7 +6,7 @@ import {
   faUnderline,
 } from '@fortawesome/free-solid-svg-icons';
 import { useAppDispatch, useAppSelector } from '../hooks/redux';
-import { setStyle } from '../store/features/cellSlice';
+import { setStyle } from '../store/features/globalSlice';
 import { setCurrentStyle } from '../store/features/localSlice';
 
 function Toolbar() {

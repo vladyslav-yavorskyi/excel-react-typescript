@@ -1,6 +1,6 @@
 import { useState, DragEvent } from 'react';
 import { useAppDispatch } from '../../../hooks/redux';
-import { setColState, setRowState } from '../../../store/features/cellSlice';
+import { setColState, setRowState } from '../../../store/features/globalSlice';
 
 interface ICell {
   resizable: any;

@@ -1,5 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit';
-import cellReducer from './features/cellSlice';
+import cellReducer from './features/globalSlice';
 import localReducer from './features/localSlice';
 import { Doc } from 'yjs';
 import { WebrtcProvider } from 'y-webrtc';

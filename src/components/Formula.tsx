@@ -1,6 +1,6 @@
 import React from 'react';
 import { useAppDispatch, useAppSelector } from '../hooks/redux';
-import { addText } from '../store/features/cellSlice';
+import { addText } from '../store/features/globalSlice';
 import { setCurrentText } from '../store/features/localSlice';
 function Formula() {
   const { currentText, currentCell } = useAppSelector(
