@@ -9,13 +9,14 @@ import {
 import useDebaunce from '../../hooks/useDebaunce';
 import { ICell } from '../../interfaces';
 import { nextSelector } from './utils/cellHelpers';
+import { useState } from 'react';
 
 function Cell({ width, type, data_col, data_row }: ICell) {
+  const [isActive, setIsActive] = useState(false);
+  const dispatch = useAppDispatch();
   const { dataState, stylesState } = useAppSelector(
     (state) => state.cellReducer
   );
-  const { currentCell } = useAppSelector((state) => state.localReducer);
-  const dispatch = useAppDispatch();
 
   const setText = useDebaunce((event: ContentEditableEvent) => {
     dispatch(
@@ -69,7 +70,9 @@ function Cell({ width, type, data_col, data_row }: ICell) {
       selection?.addRange(range);
     }
   };
+
   const clickHandler = () => {
+    setIsActive(true);
     dispatch(setCurrentCell({ cell: `${data_col}:${data_row}` }));
     dispatch(
       setCurrentStyle({
@@ -91,12 +94,10 @@ function Cell({ width, type, data_col, data_row }: ICell) {
       className={`relative text-center border-solid border-l-0 border-b-0 border-2 border-gray-300 z-10 `}
       style={{
         ...stylesState[`${data_col}:${data_row}` as keyof typeof stylesState],
-        backgroundColor:
-          `${data_col}:${data_row}` === currentCell
-            ? 'rgba(0, 0, 255, 0.2)'
-            : '',
+        backgroundColor: isActive ? 'rgba(0, 0, 255, 0.2)' : '',
       }}
       onClick={clickHandler}
+      onBlur={() => setIsActive(false)}
     >
       <ContentEditable
         style={{ width, height: '100%' }}

@@ -4,12 +4,21 @@ import localReducer from './features/localSlice';
 import { Doc } from 'yjs';
 import { WebrtcProvider } from 'y-webrtc';
 import { bind, enhanceReducer } from 'redux-yjs-bindings';
+import { localStorageMiddleware } from './localStorageMiddleware';
+
+const persistedState = JSON.parse(
+  localStorage.getItem('myAppReduxState') || '{}'
+);
 
 export const store = configureStore({
   reducer: {
-    cellReducer: enhanceReducer(cellReducer),
+    cellReducer: enhanceReducer<any>(cellReducer),
     localReducer,
   },
+  middleware: (getDefaultMiddleware) => {
+    return getDefaultMiddleware().concat(localStorageMiddleware);
+  },
+  preloadedState: persistedState,
 });
 
 const yDoc = new Doc();
