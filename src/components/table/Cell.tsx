@@ -1,11 +1,11 @@
 import ContentEditable, { ContentEditableEvent } from 'react-contenteditable';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
-import { addText } from '../../store/features/globalSlice';
 import {
-  setCurrentText,
+  addText,
   setCurrentCell,
   setCurrentStyle,
-} from '../../store/features/localSlice';
+  setCurrentText,
+} from '../../store/features/cellSlice';
 import useDebaunce from '../../hooks/useDebaunce';
 import { ICell } from '../../interfaces';
 import { nextSelector } from './utils/cellHelpers';

@@ -58,11 +58,28 @@ export const cellSlice = createSlice({
 
       state.rowState = { ...state.rowState, [coords]: row };
     },
+    setCurrentText: (state, action: PayloadAction<{ text: string }>) => {
+      state.currentText = action.payload.text;
+    },
+    setCurrentStyle: (state, action: PayloadAction<{ style: object }>) => {
+      state.currentStyle = { ...action.payload.style };
+    },
+    setCurrentCell: (state, action: PayloadAction<{ cell: string }>) => {
+      state.currentCell = action.payload.cell;
+    },
   },
 });
 
 // Action creators are generated for each case reducer function
-export const { addText, setStyle, setTitle, setColState, setRowState } =
-  cellSlice.actions;
+export const {
+  addText,
+  setStyle,
+  setTitle,
+  setColState,
+  setRowState,
+  setCurrentCell,
+  setCurrentStyle,
+  setCurrentText,
+} = cellSlice.actions;
 
 export default cellSlice.reducer;

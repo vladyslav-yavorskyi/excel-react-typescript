@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { Link } from 'react-router-dom';
 
 function TablesList() {
   const [keys, setKeys] = React.useState<string[]>([]);
@@ -31,15 +32,14 @@ function TablesList() {
       <ul className="m-0 p-0 list-none">
         {keys.map((key, index) => (
           <li
-            className="flex rounded-full justify-between items-center p-2 md:p-3 lg:p-4 mb-4 hover:bg-green-200 hover:rounded-xl"
+            className="flex rounded-full justify-between items-center p-2 md:p-3 lg:p-4 mb-4 hover:bg-green-200 hover:rounded-full"
             key={index}
           >
-            <a
-              href={`/excel/${key.split(':')[1]}`}
-              className="no-underline hover:underline text-gray-700 text-base md:text-lg lg:text-xl"
-            >
-              {key}
-            </a>
+            <Link to={`/excel/${key.split(':')[1]}`}>
+              <p className="no-underline hover:underline text-gray-700 text-base md:text-lg lg:text-xl">
+                {key}
+              </p>
+            </Link>
             <strong>data</strong>
           </li>
         ))}

@@ -1,9 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit';
-import cellReducer from './features/globalSlice';
-import localReducer from './features/localSlice';
-import { Doc } from 'yjs';
-import { WebrtcProvider } from 'y-webrtc';
-import { bind, enhanceReducer } from 'redux-yjs-bindings';
+import cellReducer from './features/cellSlice';
 import { localStorageMiddleware } from './localStorageMiddleware';
 
 const persistedState = JSON.parse(
@@ -12,29 +8,13 @@ const persistedState = JSON.parse(
 
 export const store = configureStore({
   reducer: {
-    cellReducer: enhanceReducer<any>(cellReducer),
-    localReducer,
+    cellReducer,
   },
   middleware: (getDefaultMiddleware) => {
     return getDefaultMiddleware().concat(localStorageMiddleware);
   },
   preloadedState: persistedState,
 });
-
-const yDoc = new Doc();
-
-const webrtcOptions = {
-  signaling: ['ws://localhost:3000'],
-};
-
-new WebrtcProvider(
-  'redux-yjs-bindings-cra-redux-typescript-example',
-  yDoc,
-  // All fields are actually optional, this is currently typed wrong in yjs
-  webrtcOptions as any
-);
-
-bind(yDoc, store, 'cellReducer');
 
 // Infer the `RootState` and `AppDispatch` types from the store itself
 export type RootState = ReturnType<typeof store.getState>;
