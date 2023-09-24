@@ -14,7 +14,7 @@ function Toolbar() {
   );
   const dispatch = useAppDispatch();
 
-  const [styles, setStyles] = useState({
+  const [styles] = useState({
     fontWeight: false,
     fontStyle: false,
     textDecoration: false,

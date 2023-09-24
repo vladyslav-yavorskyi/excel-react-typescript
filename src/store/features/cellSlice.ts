@@ -3,7 +3,7 @@ import type { PayloadAction } from '@reduxjs/toolkit';
 import { CellPros } from '../../interfaces';
 
 export const initialState: CellPros = {
-  title: 'Untitled table',
+  title: 'Untitled',
   dataState: {},
   stylesState: {},
   colState: {},
@@ -77,8 +77,6 @@ export const cellSlice = createSlice({
       state.currentCell = '0:0';
     },
     setState: (state, action: PayloadAction<{ state: CellPros }>) => {
-      console.log('action.payload.state', action.payload.state);
-
       state.title = action.payload.state.title;
       state.dataState = action.payload.state.dataState;
       state.stylesState = action.payload.state.stylesState;

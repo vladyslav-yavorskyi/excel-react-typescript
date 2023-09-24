@@ -3,33 +3,42 @@ import Formula from '../components/Formula';
 import Navbar from '../components/Navbar';
 import Toolbar from '../components/Toolbar';
 import Table from '../components/table/Table';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useAppDispatch } from '../hooks/redux';
 import { setState } from '../store/features/cellSlice';
 
 function Excel() {
   const location = useLocation();
   const dispatch = useAppDispatch();
+  const [isFetched, setIsFetched] = useState(false);
 
   useEffect(() => {
-    const data = localStorage.getItem(
-      `excel:${location.pathname.split('/')[2]}`
-    );
-    console.log(data);
+    const setStateLocalStorage = async () => {
+      const data = await localStorage.getItem(
+        `excel:${location.pathname.split('/')[2]}`
+      );
+      console.log(data);
 
-    if (data) {
-      console.log(JSON.parse(data));
-
-      dispatch(setState({ state: JSON.parse(data) }));
-    }
-  }, [location.pathname, dispatch]);
+      if (data) {
+        await dispatch(setState({ state: JSON.parse(data) }));
+        setIsFetched(true);
+      }
+    };
+    setStateLocalStorage();
+  }, [dispatch, location.pathname]);
 
   return (
     <>
-      <Navbar />
-      <Toolbar />
-      <Formula />
-      <Table />
+      {isFetched ? (
+        <div>
+          <Navbar />
+          <Toolbar />
+          <Formula />
+          <Table />
+        </div>
+      ) : (
+        <p>Loading...</p>
+      )}
     </>
   );
 }
