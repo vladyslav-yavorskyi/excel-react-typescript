@@ -1,7 +1,12 @@
 export const localStorageMiddleware =
   (store: any) => (next: any) => (action: any) => {
     const result = next(action);
-    const stateToPersist = store.getState();
-    localStorage.setItem('myAppReduxState', JSON.stringify(stateToPersist));
+    const stateToPersist = store.getState().cellReducer;
+    console.log(window.location.pathname);
+
+    localStorage.setItem(
+      'excel:' + window.location.pathname.split('/')[2],
+      JSON.stringify(stateToPersist)
+    );
     return result;
   };

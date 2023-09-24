@@ -37,7 +37,7 @@ function TablesList() {
           >
             <Link to={`/excel/${key.split(':')[1]}`}>
               <p className="no-underline hover:underline text-gray-700 text-base md:text-lg lg:text-xl">
-                {key}
+                {JSON.parse(String(localStorage.getItem(key))).title}
               </p>
             </Link>
             <strong>data</strong>

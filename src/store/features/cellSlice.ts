@@ -2,8 +2,8 @@ import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
 import { CellPros } from '../../interfaces';
 
-const initialState: CellPros = {
-  title: '',
+export const initialState: CellPros = {
+  title: 'Untitled table',
   dataState: {},
   stylesState: {},
   colState: {},
@@ -25,7 +25,6 @@ export const cellSlice = createSlice({
 
       state.dataState = { ...state.dataState, [coords]: text };
     },
-
     setStyle: (
       state,
       action: PayloadAction<{
@@ -67,6 +66,28 @@ export const cellSlice = createSlice({
     setCurrentCell: (state, action: PayloadAction<{ cell: string }>) => {
       state.currentCell = action.payload.cell;
     },
+    resetAll: (state) => {
+      state.title = '';
+      state.dataState = {};
+      state.stylesState = {};
+      state.colState = {};
+      state.rowState = {};
+      state.currentText = '';
+      state.currentStyle = {};
+      state.currentCell = '0:0';
+    },
+    setState: (state, action: PayloadAction<{ state: CellPros }>) => {
+      console.log('action.payload.state', action.payload.state);
+
+      state.title = action.payload.state.title;
+      state.dataState = action.payload.state.dataState;
+      state.stylesState = action.payload.state.stylesState;
+      state.colState = action.payload.state.colState;
+      state.rowState = action.payload.state.rowState;
+      state.currentText = action.payload.state.currentText;
+      state.currentStyle = action.payload.state.currentStyle;
+      state.currentCell = action.payload.state.currentCell;
+    },
   },
 });
 
@@ -80,6 +101,8 @@ export const {
   setCurrentCell,
   setCurrentStyle,
   setCurrentText,
+  resetAll,
+  setState,
 } = cellSlice.actions;
 
 export default cellSlice.reducer;

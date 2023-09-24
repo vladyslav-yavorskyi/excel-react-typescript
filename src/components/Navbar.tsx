@@ -6,25 +6,27 @@ import { Link } from 'react-router-dom';
 
 function Navbar() {
   const dispatch = useAppDispatch();
-  const [localTitle, setLocalTitle] = useState('Undefined' as string);
+  const { title } = useAppSelector((state) => state.cellReducer);
+  const [localTitle, setLocalTitle] = useState(title || 'Untitled');
   const inputRef = useRef<HTMLInputElement>(null);
+  console.log(title);
 
   const changeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
-    // dispatch(setTitle({ title: event.target.value }));
+    setLocalTitle(event.target.value);
   };
 
   const keyHandler = (event: any) => {
     if (event.key === 'Enter') {
       inputRef.current?.blur();
       if (localTitle === '') {
-        setLocalTitle('Undefined');
+        setLocalTitle('Untitled');
       }
     }
   };
 
   const blurHandler = () => {
     if (localTitle === '') {
-      setLocalTitle('Undefined');
+      setLocalTitle('Untitled');
     }
     dispatch(setTitle({ title: localTitle }));
   };
@@ -35,10 +37,10 @@ function Navbar() {
         <img className="w-[36px] m-2" src={icon} alt="icon" />
         <input
           ref={inputRef}
-          className="w-[auto] text-gray-600 text-[20px]"
-          value={localTitle}
+          className="text-gray-600 text-[20px]"
+          value={title || 'Untitled'}
           onKeyUp={keyHandler}
-          onChange={(event) => setLocalTitle(event.target.value)}
+          onChange={changeHandler}
           onFocus={(event) => event.target.select()}
           onBlur={blurHandler}
         />
