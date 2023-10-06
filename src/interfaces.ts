@@ -1,3 +1,5 @@
+import { Action, Dispatch, MiddlewareAPI } from '@reduxjs/toolkit';
+
 export interface ICell {
   id: string | number;
   width: number;
@@ -35,4 +37,11 @@ export interface CellPros {
   };
   currentText: string;
   currentCell: string;
+}
+
+export interface Middleware {
+  store: MiddlewareAPI;
+  next: Dispatch;
+  action: Action;
+  [otherProperty: string]: {};
 }

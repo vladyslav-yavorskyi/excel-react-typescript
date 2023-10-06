@@ -13,14 +13,14 @@ function Excel() {
   const [isFetched, setIsFetched] = useState(false);
 
   useEffect(() => {
-    const setStateLocalStorage = async () => {
-      const data = await localStorage.getItem(
+    const setStateLocalStorage = () => {
+      const data = localStorage.getItem(
         `excel:${location.pathname.split('/')[2]}`
       );
       console.log(data);
 
       if (data) {
-        await dispatch(setState({ state: JSON.parse(data) }));
+        dispatch(setState({ state: JSON.parse(data) }));
         setIsFetched(true);
       }
     };

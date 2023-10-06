@@ -1,5 +1,6 @@
-import { configureStore } from '@reduxjs/toolkit';
+import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import cellReducer from './features/cellSlice';
+import groupSelectReducer from './features/groupSelectSlice';
 import { localStorageMiddleware } from './localStorageMiddleware';
 
 const persistedState = JSON.parse(
@@ -9,6 +10,7 @@ const persistedState = JSON.parse(
 export const store = configureStore({
   reducer: {
     cellReducer,
+    groupSelectReducer,
   },
   middleware: (getDefaultMiddleware) => {
     return getDefaultMiddleware().concat(localStorageMiddleware);
@@ -16,7 +18,11 @@ export const store = configureStore({
   preloadedState: persistedState,
 });
 
+const rootReducers = combineReducers({
+  cellReducer,
+  groupSelectReducer,
+});
 // Infer the `RootState` and `AppDispatch` types from the store itself
-export type RootState = ReturnType<typeof store.getState>;
+export type RootState = ReturnType<typeof rootReducers>;
 // Inferred type: {posts: PostsState, comments: CommentsState, users: UsersState}
 export type AppDispatch = typeof store.dispatch;

@@ -1,13 +1,12 @@
 import { useEffect, useRef, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../hooks/redux';
 import icon from '../icons/icon.png';
-import { resetAll, setTitle } from '../store/features/cellSlice';
+import { setTitle } from '../store/features/cellSlice';
 import { Link } from 'react-router-dom';
 
 function Navbar() {
   const dispatch = useAppDispatch();
   const { title } = useAppSelector((state) => state.cellReducer);
-  console.log(title);
 
   const [localTitle, setLocalTitle] = useState(title);
   const inputRef = useRef<HTMLInputElement>(null);

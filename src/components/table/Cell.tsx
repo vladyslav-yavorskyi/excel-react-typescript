@@ -9,13 +9,22 @@ import {
 import useDebaunce from '../../hooks/useDebaunce';
 import { ICell } from '../../interfaces';
 import { nextSelector } from './utils/cellHelpers';
-import { useState } from 'react';
+import { memo, useState } from 'react';
+import {
+  clearGroup,
+  handleIsSelecting,
+  selectCells,
+  setStartCoords,
+} from '../../store/features/groupSelectSlice';
 
 function Cell({ width, type, data_col, data_row }: ICell) {
   const [isActive, setIsActive] = useState(false);
-  const dispatch = useAppDispatch();
   const { dataState, stylesState } = useAppSelector(
     (state) => state.cellReducer
+  );
+  const dispatch = useAppDispatch();
+  const [value, setValue] = useState(
+    dataState[`${data_col}:${data_row}` as keyof typeof dataState] ?? ''
   );
 
   const setText = useDebaunce((event: ContentEditableEvent) => {
@@ -30,9 +39,10 @@ function Cell({ width, type, data_col, data_row }: ICell) {
 
   const changeHandler = (event: ContentEditableEvent) => {
     setText(event);
+    setValue(event.target.value);
   };
 
-  const keyHandler = (event: any) => {
+  const keyHandler = (event: React.KeyboardEvent) => {
     const keys = [
       'Enter',
       'Tab',
@@ -72,6 +82,7 @@ function Cell({ width, type, data_col, data_row }: ICell) {
   };
 
   const clickHandler = () => {
+    dispatch(clearGroup());
     setIsActive(true);
     dispatch(setCurrentCell({ cell: `${data_col}:${data_row}` }));
     dispatch(
@@ -89,6 +100,11 @@ function Cell({ width, type, data_col, data_row }: ICell) {
     );
   };
 
+  const doubleClickHandler = (event: any) => {
+    dispatch(setStartCoords(event.target.id));
+    dispatch(handleIsSelecting(true));
+  };
+
   return (
     <div
       className={`relative text-center border-solid border-l-0 border-b-0 border-2 border-gray-300 z-10 `}
@@ -100,12 +116,21 @@ function Cell({ width, type, data_col, data_row }: ICell) {
       onBlur={() => setIsActive(false)}
     >
       <ContentEditable
-        style={{ width, height: '100%' }}
+        style={{
+          width,
+          height: '100%',
+          caretColor: value ? '' : 'transparent',
+        }}
+        onMouseDown={doubleClickHandler}
+        onMouseUp={() => dispatch(handleIsSelecting(false))}
+        onMouseEnter={(event: any) => {
+          console.log(event.target.id);
+
+          dispatch(selectCells(event.target.id));
+        }}
         onKeyDown={keyHandler}
         onChange={changeHandler}
-        html={
-          dataState[`${data_col}:${data_row}` as keyof typeof dataState] ?? ''
-        }
+        html={value}
         disabled={type ? true : false}
         spellCheck={false}
         className={`flex items-center whitespace-nowrap outline-none text-ellipsis overflow-hidden`}
@@ -117,4 +142,4 @@ function Cell({ width, type, data_col, data_row }: ICell) {
   );
 }
 
-export default Cell;
+export default memo(Cell);

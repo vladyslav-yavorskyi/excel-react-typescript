@@ -1,8 +1,11 @@
-export const localStorageMiddleware =
-  (store: any) => (next: any) => (action: any) => {
+import { Middleware } from 'redux';
+import { RootState } from './store';
+
+export const localStorageMiddleware: Middleware<{}, RootState> =
+  (store) => (next) => (action) => {
     const result = next(action);
     const stateToPersist = store.getState().cellReducer;
-    console.log(window.location.pathname);
+    console.log(action.type);
 
     localStorage.setItem(
       'excel:' + window.location.pathname.split('/')[2],

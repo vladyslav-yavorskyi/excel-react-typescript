@@ -31,17 +31,17 @@ function TablesList() {
       </div>
       <ul className="m-0 p-0 list-none">
         {keys.map((key, index) => (
-          <li
-            className="flex rounded-full justify-between items-center p-2 md:p-3 lg:p-4 mb-4 hover:bg-green-200 hover:rounded-full"
-            key={index}
-          >
-            <Link to={`/excel/${key.split(':')[1]}`}>
+          <Link to={`/excel/${key.split(':')[1]}`}>
+            <li
+              className="flex rounded-full justify-between items-center p-2 md:p-3 lg:p-4 mb-4 hover:bg-green-200 hover:rounded-full"
+              key={index}
+            >
               <p className="no-underline hover:underline text-gray-700 text-base md:text-lg lg:text-xl">
                 {JSON.parse(String(localStorage.getItem(key))).title}
               </p>
-            </Link>
-            <strong>data</strong>
-          </li>
+              <strong>data</strong>
+            </li>
+          </Link>
         ))}
       </ul>
     </>

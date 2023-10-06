@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import GenerateFirstRow from './GenerateFirstRow';
 import GridTable from './GridTable';
 
@@ -19,4 +19,4 @@ function Table() {
   );
 }
 
-export default Table;
+export default memo(Table);
