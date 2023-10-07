@@ -2,11 +2,16 @@
 A simple Excel clone application built with React, TypeScript, Redux, React Router, and localStorage support.
 
 ## Features 
--Create, edit, and delete spreadsheets.
+-Create, edit, and delete spreadsheets. 
+
 -Spreadsheet grid with support for cell formatting.
+
 -Cell formatting options (bold, italic, underline, text alignment, etc.).
+
 -Support for saving data to and loading data from localStorage.
+
 -Navigation between different spreadsheets using React Router.
+
 
 ## Installation
 Clone the repository to your local machine:
@@ -34,7 +39,7 @@ npm start
 Open your web browser and go to http://localhost:3000 to use the Excel Clone application.
 
 ## Configuration
-**The application uses localStorage to store spreadsheet data. No additional configuration is required.**
+The application uses localStorage to store spreadsheet data. No additional configuration is required.
 
 
 ## Contact
