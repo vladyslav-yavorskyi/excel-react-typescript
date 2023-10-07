@@ -12,20 +12,20 @@ A simple Excel clone application built with React, TypeScript, Redux, React Rout
 Clone the repository to your local machine:
 
 ```bash
-Copy code
 git clone https://github.com/yourusername/excel-clone.git
 ```
 Navigate to the project directory:
 
 ```bash
-Copy code
 cd excel-clone
 ```
 **Install dependencies using npm or yarn:**
 
-Copy code
+```bash
 npm install
-Usage
+```
+
+**Usage**
 Start the development server:
 
 ```sql
