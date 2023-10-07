@@ -22,6 +22,7 @@ function Cell({ width, type, data_col, data_row }: ICell) {
   const { dataState, stylesState } = useAppSelector(
     (state) => state.cellReducer
   );
+  const { isSelecting } = useAppSelector((state) => state.groupSelectReducer);
   const dispatch = useAppDispatch();
   const [value, setValue] = useState(
     dataState[`${data_col}:${data_row}` as keyof typeof dataState] ?? ''
@@ -124,8 +125,6 @@ function Cell({ width, type, data_col, data_row }: ICell) {
         onMouseDown={doubleClickHandler}
         onMouseUp={() => dispatch(handleIsSelecting(false))}
         onMouseEnter={(event: any) => {
-          console.log(event.target.id);
-
           dispatch(selectCells(event.target.id));
         }}
         onKeyDown={keyHandler}

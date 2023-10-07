@@ -12,6 +12,7 @@ function Toolbar() {
   const { currentCell, currentStyle } = useAppSelector(
     (state) => state.cellReducer
   );
+  const { group } = useAppSelector((state) => state.groupSelectReducer);
   const dispatch = useAppDispatch();
 
   const [styles] = useState({
@@ -22,16 +23,20 @@ function Toolbar() {
 
   const clickHandler = (style: string, value: string) => {
     return () => {
+      const updateStyle = (style: any, value: any) => {
+        const updatedStyle = { ...currentStyle, [style]: value };
+        dispatch(setCurrentStyle({ style: updatedStyle }));
+
+        const targetCell = group.length ? group : [currentCell];
+        targetCell.forEach((cell) => {
+          dispatch(setStyle({ styleObj: { cell, style, value } }));
+        });
+      };
+
       if (currentStyle[style as keyof typeof styles]) {
-        dispatch(setCurrentStyle({ style: { ...currentStyle, [style]: '' } }));
-        dispatch(
-          setStyle({ styleObj: { cell: currentCell, style, value: '' } })
-        );
+        updateStyle(style, '');
       } else {
-        dispatch(
-          setCurrentStyle({ style: { ...currentStyle, [style]: value } })
-        );
-        dispatch(setStyle({ styleObj: { cell: currentCell, style, value } }));
+        updateStyle(style, value);
       }
     };
   };

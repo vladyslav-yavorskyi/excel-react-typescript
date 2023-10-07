@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { range } from '../utils';
 
 export const gropuSelectSlice = createSlice({
   name: 'groupSelectReducer',
@@ -11,28 +12,28 @@ export const gropuSelectSlice = createSlice({
     selectCells: (state, action) => {
       const [r, c] = action.payload.split(':');
       const [startR, startC] = state.startCoords.split(':');
+
       if (state.isSelecting) {
+        const cols = range(Number(startC), Number(c));
+        const rows = range(Number(startR), Number(r));
+
         state.group.forEach((id: string) => {
           const cell = document.getElementById(id) as HTMLElement;
           cell?.classList.remove('bg-blue-200');
         });
 
-        for (
-          let i = Math.min(Number(startR), Number(r));
-          i <= Math.max(Number(startR), Number(r));
-          i++
-        ) {
-          for (
-            let j = Math.min(Number(startC), Number(c));
-            j <= Math.max(Number(startC), Number(c));
-            j++
-          ) {
-            const cell = document.getElementById(`${i}:${j}`) as HTMLElement;
-
+        const arr = cols.reduce((acc: string[], col) => {
+          rows.forEach((row) => {
+            const cell = document.getElementById(
+              `${row}:${col}`
+            ) as HTMLElement;
             cell?.classList.add('bg-blue-200');
-            state.group.push(`${i}:${j}`);
-          }
-        }
+            acc.push(`${row}:${col}`);
+          });
+          return acc;
+        }, []);
+
+        state.group = arr;
       }
     },
     setStartCoords: (state, action) => {
@@ -44,6 +45,7 @@ export const gropuSelectSlice = createSlice({
         cell?.classList.remove('bg-blue-200');
       });
       state.group = [];
+      console.log(state.group);
     },
     handleIsSelecting: (state, action) => {
       state.isSelecting = action.payload;
