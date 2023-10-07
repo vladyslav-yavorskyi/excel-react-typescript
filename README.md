@@ -29,7 +29,6 @@ npm install
 Start the development server:
 
 ```sql
-Copy code
 npm start
 ```
 Open your web browser and go to http://localhost:3000 to use the Excel Clone application.
