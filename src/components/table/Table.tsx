@@ -4,7 +4,7 @@ import GridTable from './GridTable';
 
 function Table() {
   return (
-    <div className="absolute overflow-x-auto" data-component="table">
+    <div className="absolute" data-component="table">
       <GenerateFirstRow />
       <GridTable rowsCount={100} />
       <div
@@ -13,7 +13,7 @@ function Table() {
       ></div>
       <div
         id="resizer-row"
-        className="absolute w-[100%] h-[4px] bg-gray-400 bottom-0  z-30"
+        className="absolute w-[100%] h-[4px] bg-gray-400 top-[-50000px] z-30"
       ></div>
     </div>
   );

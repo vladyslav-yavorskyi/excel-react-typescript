@@ -24,9 +24,6 @@ function Cell({ width, type, data_col, data_row }: ICell) {
   );
   const { isSelecting } = useAppSelector((state) => state.groupSelectReducer);
   const dispatch = useAppDispatch();
-  const [value, setValue] = useState(
-    dataState[`${data_col}:${data_row}` as keyof typeof dataState] ?? ''
-  );
 
   const setText = useDebaunce((event: ContentEditableEvent) => {
     dispatch(
@@ -40,7 +37,6 @@ function Cell({ width, type, data_col, data_row }: ICell) {
 
   const changeHandler = (event: ContentEditableEvent) => {
     setText(event);
-    setValue(event.target.value);
   };
 
   const keyHandler = (event: React.KeyboardEvent) => {
@@ -102,8 +98,10 @@ function Cell({ width, type, data_col, data_row }: ICell) {
   };
 
   const doubleClickHandler = (event: any) => {
-    dispatch(setStartCoords(event.target.id));
-    dispatch(handleIsSelecting(true));
+    if (event.shiftKey) {
+      dispatch(setStartCoords(event.target.id));
+      dispatch(handleIsSelecting(true));
+    }
   };
 
   return (
@@ -120,16 +118,23 @@ function Cell({ width, type, data_col, data_row }: ICell) {
         style={{
           width,
           height: '100%',
-          caretColor: value ? '' : 'transparent',
+          caretColor:
+            dataState[`${data_col}:${data_row}` as keyof typeof dataState] ?? ''
+              ? ''
+              : 'transparent',
         }}
         onMouseDown={doubleClickHandler}
         onMouseUp={() => dispatch(handleIsSelecting(false))}
         onMouseEnter={(event: any) => {
-          dispatch(selectCells(event.target.id));
+          if (event.shiftKey) {
+            dispatch(selectCells(event.target.id));
+          }
         }}
         onKeyDown={keyHandler}
         onChange={changeHandler}
-        html={value}
+        html={
+          dataState[`${data_col}:${data_row}` as keyof typeof dataState] ?? ''
+        }
         disabled={type ? true : false}
         spellCheck={false}
         className={`flex items-center whitespace-nowrap outline-none text-ellipsis overflow-hidden`}

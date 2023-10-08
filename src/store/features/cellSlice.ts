@@ -22,6 +22,7 @@ export const cellSlice = createSlice({
       action: PayloadAction<{ coords: string; text: string }>
     ) => {
       const { coords, text } = action.payload;
+      console.log(text);
 
       state.dataState = { ...state.dataState, [coords]: text };
     },

@@ -45,7 +45,6 @@ export const gropuSelectSlice = createSlice({
         cell?.classList.remove('bg-blue-200');
       });
       state.group = [];
-      console.log(state.group);
     },
     handleIsSelecting: (state, action) => {
       state.isSelecting = action.payload;

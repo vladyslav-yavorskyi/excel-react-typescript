@@ -13,7 +13,7 @@ function Formula() {
   };
 
   return (
-    <div className="flex">
+    <div className="flex m-2">
       <span>f(x)</span>
       <input
         className="border-solid border-2 border-gray-300 rounded"

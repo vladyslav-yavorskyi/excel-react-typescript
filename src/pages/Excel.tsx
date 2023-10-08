@@ -17,7 +17,6 @@ function Excel() {
       const data = localStorage.getItem(
         `excel:${location.pathname.split('/')[2]}`
       );
-      console.log(data);
 
       if (data) {
         dispatch(setState({ state: JSON.parse(data) }));
