@@ -12,6 +12,9 @@ A simple Excel clone application built with React, TypeScript, Redux, React Rout
 
 -Navigation between different spreadsheets using React Router.
 
+## GIF Demo
+![Animation](https://github.com/vladyslav-yavorskyi/excel-react-typescript/assets/57500942/d56cfd14-d87e-4172-b1a9-fcd250e81b42)
+
 
 ## Installation
 Clone the repository to your local machine:
