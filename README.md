@@ -17,7 +17,7 @@ A simple Excel clone application built with React, TypeScript, Redux, React Rout
 Clone the repository to your local machine:
 
 ```bash
-git clone https://github.com/yourusername/excel-clone.git
+git clone https://github.com/vladyslav-yavorskyi/excel-clone.git
 ```
 Navigate to the project directory:
 
@@ -31,6 +31,7 @@ npm install
 ```
 
 **Usage**
+##
 Start the development server:
 
 ```sql
@@ -45,7 +46,7 @@ The application uses localStorage to store spreadsheet data. No additional confi
 ## Contact
 For any questions or feedback, feel free to contact the project maintainer:
 
-Vladyslav Yavorskyi
+Vladyslav Yavorskyi ##
 Email: vlad09vlad09@gmail.com
 
 
