@@ -22,7 +22,6 @@ function Cell({ width, type, data_col, data_row }: ICell) {
   const { dataState, stylesState } = useAppSelector(
     (state) => state.cellReducer
   );
-  const { isSelecting } = useAppSelector((state) => state.groupSelectReducer);
   const dispatch = useAppDispatch();
 
   const setText = useDebaunce((event: ContentEditableEvent) => {
@@ -97,9 +96,10 @@ function Cell({ width, type, data_col, data_row }: ICell) {
     );
   };
 
-  const doubleClickHandler = (event: any) => {
+  const startSelect = (event: React.MouseEvent) => {
     if (event.shiftKey) {
-      dispatch(setStartCoords(event.target.id));
+      const id = (event.target as HTMLDivElement).id;
+      dispatch(setStartCoords(id));
       dispatch(handleIsSelecting(true));
     }
   };
@@ -123,7 +123,7 @@ function Cell({ width, type, data_col, data_row }: ICell) {
               ? ''
               : 'transparent',
         }}
-        onMouseDown={doubleClickHandler}
+        onMouseDown={startSelect}
         onMouseUp={() => dispatch(handleIsSelecting(false))}
         onMouseEnter={(event: any) => {
           if (event.shiftKey) {

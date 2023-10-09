@@ -28,7 +28,7 @@ function Navbar() {
     }
   };
 
-  const keyHandler = (event: any) => {
+  const keyHandler = (event: React.KeyboardEvent) => {
     if (event.key === 'Enter') {
       inputRef.current?.blur();
       checkEmptyTitle();
