@@ -6,6 +6,8 @@ import Table from '../components/table/Table';
 import { useEffect, useState } from 'react';
 import { useAppDispatch } from '../hooks/redux';
 import { setState } from '../store/features/cellSlice';
+import { Provider } from 'react-redux';
+import { store } from '../store/store';
 
 function Excel() {
   const location = useLocation();
@@ -14,9 +16,7 @@ function Excel() {
 
   useEffect(() => {
     const setStateLocalStorage = () => {
-      const data = localStorage.getItem(
-        `excel:${location.pathname.split('/')[2]}`
-      );
+      const data = localStorage.getItem(`excel:${location.pathname.split('/')[2]}`);
 
       if (data) {
         dispatch(setState({ state: JSON.parse(data) }));

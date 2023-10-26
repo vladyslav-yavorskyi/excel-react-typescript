@@ -47,6 +47,7 @@ function Navbar() {
       <div className="flex items-center">
         <img className="w-[36px] m-2" src={icon} alt="icon" />
         <input
+          data-testid="input"
           ref={inputRef}
           className="text-gray-600 text-[20px]"
           value={localTitle}
@@ -58,7 +59,10 @@ function Navbar() {
       </div>
       <div>
         <Link to={'/'}>
-          <button className="transition ease-in-out font-bold p-2 m-2 border-solid border-2 border-green-600 bg-green-600 rounded-xl text-white hover:bg-white hover:text-green-600">
+          <button
+            data-testid="exit"
+            className="transition ease-in-out font-bold p-2 m-2 border-solid border-2 border-green-600 bg-green-600 rounded-xl text-white hover:bg-white hover:text-green-600"
+          >
             Exit
           </button>
         </Link>
