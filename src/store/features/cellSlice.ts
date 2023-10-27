@@ -17,10 +17,7 @@ export const cellSlice = createSlice({
   name: 'cellReducer',
   initialState,
   reducers: {
-    addText: (
-      state,
-      action: PayloadAction<{ coords: string; text: string }>
-    ) => {
+    addText: (state, action: PayloadAction<{ coords: string; text: string }>) => {
       const { coords, text } = action.payload;
       console.log(text);
 
@@ -42,18 +39,12 @@ export const cellSlice = createSlice({
     setTitle: (state, action: PayloadAction<{ title: string }>) => {
       state.title = action.payload.title;
     },
-    setColState: (
-      state,
-      action: PayloadAction<{ coords: string; col: number }>
-    ) => {
+    setColState: (state, action: PayloadAction<{ coords: string; col: number }>) => {
       const { coords, col } = action.payload;
 
       state.colState = { ...state.colState, [coords]: col };
     },
-    setRowState: (
-      state,
-      action: PayloadAction<{ coords: string; row: number }>
-    ) => {
+    setRowState: (state, action: PayloadAction<{ coords: string; row: number }>) => {
       const { coords, row } = action.payload;
 
       state.rowState = { ...state.rowState, [coords]: row };
